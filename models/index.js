@@ -12,12 +12,11 @@ const Trainer = TrainerModel(sequelize);
 const Client = ClientModel(sequelize);
 const GymClass = ClassModel(sequelize);
 
-// Associations
-Trainer.hasMany(GymClass, { foreignKey: 'trainerId' });
-GymClass.belongsTo(Trainer, { foreignKey: 'trainerId' });
+Trainer.hasMany(GymClass, { foreignKey: 'trainerId' }); // тренер ведет много занятий
+GymClass.belongsTo(Trainer, { foreignKey: 'trainerId' }); // каждое занятие связанно с тренером
 
-Client.belongsToMany(GymClass, { through: 'ClassClients', foreignKey: 'clientId' });
-GymClass.belongsToMany(Client, { through: 'ClassClients', foreignKey: 'classId' });
+Client.belongsToMany(GymClass, { through: 'ClassClients', foreignKey: 'clientId' }); // клиент может посещать много занятий
+GymClass.belongsToMany(Client, { through: 'ClassClients', foreignKey: 'classId' }); // и занятий включают много клиентов
 
 module.exports = { sequelize, Trainer, Client, GymClass };
 
